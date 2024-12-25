@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .nav-item .active {
+    @apply transform transition-transform duration-1000 bg-white text-black;
+  }
+}
