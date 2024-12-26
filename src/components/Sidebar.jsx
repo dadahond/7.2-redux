@@ -1,5 +1,8 @@
 import React from "react";
 import Avatar from "./Avatar";
+// react icon
+import { RiFileListLine } from "react-icons/ri";
+import { IoIosAddCircleOutline } from "react-icons/io";
 
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -23,7 +26,9 @@ function Sidebar() {
               }`
             }
           >
-            Projects
+            <span className="flex items-center gap-2">
+              <RiFileListLine /> Projects
+            </span>
           </NavLink>
         </li>
         <li className="nav-item">
@@ -37,7 +42,9 @@ function Sidebar() {
               }`
             }
           >
-            Create
+            <span className="flex items-center gap-2">
+              <IoIosAddCircleOutline /> Create
+            </span>
           </NavLink>
         </li>
       </ul>

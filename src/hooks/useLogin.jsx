@@ -1,16 +1,21 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase/config";
+import { auth, db } from "../firebase/config";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { login } from "../app/features/userSlice";
+import { doc, setDoc } from "firebase/firestore";
 
-export function useLogin() {
-  const loginWithEmailAndPassword = (email, password) => {
-    console.log(email, password);
-    signInWithEmailAndPassword(auth, email, password)
-      .then((profile) => {
-        console.log(profile.user);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+export const useLogin = () => {
+  const dispatch = useDispatch();
+  const loginWithEmailAndPassword = async (email, password) => {
+    let res = await signInWithEmailAndPassword(auth, email, password);
+    await setDoc(doc(db, "users", res.user.uid), {
+      displayName: res.user.displayName,
+      id: res.user.uid,
+      online: true,
+    });
+    dispatch(login(profile.user));
+    toast.success(`Welcome back, ${profile.user.displayName}`);
   };
   return { loginWithEmailAndPassword };
-}
+};

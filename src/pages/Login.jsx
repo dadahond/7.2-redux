@@ -39,15 +39,18 @@ function Login() {
         <div className="mt-5 ">
           <button
             className="btn
-   btn-primary btn-block"
+   btn-neutral btn-block"
           >
             Login
           </button>
         </div>
         <div className="my-5 text-center">
           <p>
-            If you don't have account,{" "}
-            <Link to="/register" className="link link-primary">
+            Do not have an account?{" "}
+            <Link
+              to="/register"
+              className="link link-primary text-black font-semibold text-lg"
+            >
               Register
             </Link>
           </p>

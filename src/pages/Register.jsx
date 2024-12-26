@@ -51,15 +51,18 @@ function Register() {
         <div className="mt-5 ">
           <button
             className="btn
-     btn-primary btn-block"
+     btn-neutral btn-block"
           >
             Register
           </button>
         </div>
         <div className="my-5 text-center">
           <p>
-            If you have account,{" "}
-            <Link to="/Login" className="link link-primary">
+            Already have an account?{" "}
+            <Link
+              to="/Login"
+              className="link link-primary text-black text-lg font-semibold"
+            >
               Login
             </Link>
           </p>
