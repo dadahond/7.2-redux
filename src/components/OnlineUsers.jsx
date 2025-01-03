@@ -10,8 +10,13 @@ function OnlineUsers() {
           documents.map((doc) => {
             return (
               <li key={doc.id} className="flex gap-2">
+                <span
+                  className={`h-3 w-3 rounded-full ${
+                    doc.online ? "bg-green-400" : "bg-gray-400"
+                  }`}
+                  title={doc.online ? "Online" : "Offline"}
+                ></span>
                 <p>{doc.displayName}</p>
-                <span>{doc.online ? "online" : "offline"}</span>
               </li>
             );
           })}

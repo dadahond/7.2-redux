@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import FormInput from "../components/FormInput";
 import { Form, Link, useActionData } from "react-router-dom";
 import { useRegister } from "../hooks/useRegister";
+import { useSelector } from "react-redux";
 
 // action
 export const action = async ({ request }) => {
@@ -12,6 +13,8 @@ export const action = async ({ request }) => {
   return { displayName, email, password };
 };
 function Register() {
+  const { isPending } = useSelector((store) => store.user);
+
   const { registerWithEmailAndPassword } = useRegister();
   const data = useActionData();
   useEffect(() => {
@@ -49,12 +52,23 @@ function Register() {
           lebel="Password"
         />
         <div className="mt-5 ">
-          <button
-            className="btn
-     btn-neutral btn-block"
-          >
-            Register
-          </button>
+          {!isPending && (
+            <button
+              className="btn
+   btn-neutral btn-block"
+            >
+              Register
+            </button>
+          )}
+          {isPending && (
+            <button
+              className="btn
+   btn-neutral btn-block text-2xl"
+              disabled
+            >
+              Loading...
+            </button>
+          )}
         </div>
         <div className="my-5 text-center">
           <p>

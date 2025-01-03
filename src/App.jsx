@@ -14,6 +14,7 @@ import Create from "./pages/Create";
 import Register from "./pages/Register";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 // actions
+import { action as CreateAction } from "./pages/Create";
 import { action as RegisterAction } from "./pages/Register";
 import { action as LoginAction } from "./pages/Login";
 
@@ -43,6 +44,7 @@ function App() {
         {
           path: "/create",
           element: <Create />,
+          action: CreateAction,
         },
       ],
     },

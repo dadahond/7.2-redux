@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import FormInput from "../components/FormInput";
 import { Form, Link, useActionData } from "react-router-dom";
 import { useLogin } from "../hooks/useLogin";
+import { useSelector } from "react-redux";
 
 // action
 export const action = async ({ request }) => {
@@ -12,6 +13,7 @@ export const action = async ({ request }) => {
 };
 
 function Login() {
+  const { isPending } = useSelector((store) => store.user);
   const { loginWithEmailAndPassword } = useLogin();
   const data = useActionData();
   useEffect(() => {
@@ -37,12 +39,23 @@ function Login() {
         />
 
         <div className="mt-5 ">
-          <button
-            className="btn
+          {!isPending && (
+            <button
+              className="btn
    btn-neutral btn-block"
-          >
-            Login
-          </button>
+            >
+              Login
+            </button>
+          )}
+          {isPending && (
+            <button
+              className="btn
+   btn-neutral btn-block text-2xl"
+              disabled
+            >
+              Loading...
+            </button>
+          )}
         </div>
         <div className="my-5 text-center">
           <p>
