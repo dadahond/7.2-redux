@@ -13,6 +13,9 @@ import Home from "./pages/Home";
 import Create from "./pages/Create";
 import Settings from "./pages/Settings";
 import Register from "./pages/Register";
+import About from "./pages/About";
+import ErrorPage from "./pages/ErrorPage";
+
 import ProtectedRoutes from "./components/ProtectedRoutes";
 // actions
 import { action as CreateAction } from "./pages/Create";
@@ -32,6 +35,7 @@ function App() {
   const routes = createBrowserRouter([
     {
       path: "/",
+      errorElement: <ErrorPage />,
       element: (
         <ProtectedRoutes user={user}>
           <MainLayout />
@@ -51,6 +55,10 @@ function App() {
           path: "/settings",
           element: <Settings />,
           action: CreateAction,
+        },
+        {
+          path: "/about/:id",
+          element: <About />,
         },
       ],
     },

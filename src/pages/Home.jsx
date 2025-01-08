@@ -1,5 +1,6 @@
 import React from "react";
 import { useCollection } from "../hooks/useCollection";
+import { Link } from "react-router-dom";
 
 function Home() {
   const { documents } = useCollection("projects");
@@ -12,7 +13,8 @@ function Home() {
         {documents &&
           documents.map((doc) => {
             return (
-              <div
+              <Link
+                to={`/about/${doc.id}`}
                 key={doc.id}
                 className="card bg-base-100 shadow-xl border hover:border-red-500"
               >
@@ -42,7 +44,7 @@ function Home() {
                     })}
                   </div>
                 </div>
-              </div>
+              </Link>
             );
           })}
       </div>
