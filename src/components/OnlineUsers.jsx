@@ -4,8 +4,8 @@ function OnlineUsers() {
   const { documents } = useCollection("users");
 
   return (
-    <div className=" shadow-lg rounded-lg w-[240px] p-2 bg-slate-100">
-      <h2 className="text-lg font-semibold text-slate-600 my-5 border-b pb-2 text-center">
+    <div className=" shadow-lg rounded-lg w-[240px] p-2 bg-{base-content}">
+      <h2 className="text-lg font-semibold text-{base-200} my-5 border-b pb-2 text-center">
         Online Users
       </h2>
       <ol className="list-decimal list-inside space-y-3">
@@ -28,7 +28,7 @@ function OnlineUsers() {
                 </div>
 
                 <p
-                  className="text-gray-700 font-medium truncate max-w-[140px]"
+                  className="text-{base-200} font-medium truncate max-w-[140px]"
                   title={doc.displayName}
                 >
                   {doc.displayName.length > 7

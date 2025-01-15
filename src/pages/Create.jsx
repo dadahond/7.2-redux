@@ -5,12 +5,10 @@ import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import { useEffect, useState } from "react";
 import { useFirestore } from "../hooks/useFirestore";
-import { Timestamp } from "firebase/firestore";
-import { serverTimestamp } from "firebase/firestore";
+import { Timestamp, serverTimestamp } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { useCollection } from "../hooks/useCollection";
 
-// test
 const animatedComponents = makeAnimated();
 
 export async function action({ request }) {
@@ -43,22 +41,15 @@ function Create() {
 
   useEffect(() => {
     setUsers(
-      documents?.map((document) => {
-        return {
-          value: { ...document },
-          label: document.displayName,
-        };
-      })
+      documents?.map((document) => ({
+        value: { ...document },
+        label: document.displayName,
+      }))
     );
   }, [documents]);
 
-  const selectUser = (user) => {
-    setAssignedUsers(user);
-  };
-
-  const selectProjectType = (type) => {
-    setProjectType(type);
-  };
+  const selectUser = (user) => setAssignedUsers(user);
+  const selectProjectType = (type) => setProjectType(type);
 
   const handleValidation = () => {
     if (!CreateActionData?.name) {
@@ -87,7 +78,6 @@ function Create() {
     }
     return true;
   };
-  // UseEffect
 
   useEffect(() => {
     if (CreateActionData && handleValidation()) {
@@ -103,13 +93,13 @@ function Create() {
   }, [CreateActionData]);
 
   return (
-    <div className="flex flex-col items-center px-1 h-screen overflow-y-scroll">
-      <h2 className="text-3xl font-bold text-center mb-10 text-slate-500 uppercase">
+    <div className="flex flex-col items-center px-4 py-8 h-screen overflow-y-scroll bg-base-200 rounded-lg">
+      <h2 className="text-3xl font-bold text-center mb-10 text-base-content uppercase">
         Create a project
       </h2>
       <Form
         method="post"
-        className="flex flex-col gap-5 max-w-[600px] w-full justify-center bg-white p-10 shadow-lg rounded-lg border border-slate-500"
+        className="flex flex-col gap-5 max-w-[600px] w-full justify-center bg-base-100 p-10 shadow-xl rounded-lg border border-base-300"
       >
         <FormInput
           name="name"
@@ -121,7 +111,7 @@ function Create() {
         <FormInput label="Set Due Date" type="date" name="dueTo" />
         <label className="form-control">
           <div className="label">
-            <span className="label-text font-medium text-gray-700">
+            <span className="label-text font-medium text-base-content">
               Project Type:
             </span>
           </div>
@@ -134,7 +124,7 @@ function Create() {
         </label>
         <label className="form-control">
           <div className="label">
-            <span className="label-text font-medium text-gray-700">
+            <span className="label-text font-medium text-base-content">
               Assign Users:
             </span>
           </div>
@@ -145,24 +135,21 @@ function Create() {
             components={animatedComponents}
           />
         </label>
-        {isPending && (
-          <div className="flex justify-end">
+        <div className="flex justify-end">
+          {isPending ? (
             <button
-              className="btn btn-neutral bg-slate-700"
+              className="btn btn-neutral bg-base-300 text-base-content cursor-not-allowed"
               type="submit"
               disabled
             >
               Loading...
             </button>
-          </div>
-        )}
-        {!isPending && (
-          <div className="flex justify-end">
-            <button className="btn btn-neutral  bg-slate-700">
+          ) : (
+            <button className="btn btn-neutral bg-primary text-white">
               Add Project
             </button>
-          </div>
-        )}
+          )}
+        </div>
       </Form>
     </div>
   );

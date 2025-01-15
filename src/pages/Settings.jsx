@@ -29,8 +29,8 @@ function Settings() {
       </div>
 
       <div className="w-full max-w-4xl flex flex-col items-center gap-4">
-        <div className="flex justify-around w-full mb-10">
-          <span>{user.displayName}</span>
+        <div className="flex justify-around w-full mb-10 text-gray-600">
+          <p>{user.displayName}</p>
           <span>{user.email}</span>
         </div>
         <button className="btn btn-neutral btn-sm hover:border-red-500">

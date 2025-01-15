@@ -1,17 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
 import { useCollection } from "../hooks/useCollection";
 import { Link } from "react-router-dom";
+import ProjectFilter from "../components/ProjectFilter";
+import { useSelector } from "react-redux";
 
 function Home() {
+  const [filter, setFilter] = useState("All");
   const { documents } = useCollection("projects");
+  const { user } = useSelector((store) => store.user);
+
+  const changeFilter = (filter) => {
+    setFilter(filter);
+  };
+  const projects = documents
+    ? documents.filter((doc) => {
+        switch (filter) {
+          case "all":
+            return true;
+          case "mine":
+            let assignedToMe = false;
+            doc.assignedUsers.forEach((u) => {
+              if (u.id == user.uid) assignedToMe = true;
+            });
+            return assignedToMe;
+          case "frontend":
+          case "backend":
+          case "marketing":
+          case "smm":
+            return doc.projectType == filter;
+          default:
+            return true;
+        }
+      })
+    : null;
   return (
     <div>
-      <h1 className="text-3xl mb-10 text-slate-500 font-bold">Dashboard</h1>
-
+      <h1 className="text-3xl mb-10 text-gray-500 font-bold text-center">
+        Dashboard
+      </h1>
+      <ProjectFilter changeFilter={changeFilter} />
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 ">
         {" "}
         {documents &&
-          documents.map((doc) => {
+          projects.map((doc) => {
             return (
               <Link
                 to={`/about/${doc.id}`}
